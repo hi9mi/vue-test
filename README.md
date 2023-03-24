@@ -2,4 +2,4 @@
 
 ## Deployed app
 
-WIP
+Navigate to [`deployed app`](https://stock-deals.netlify.app/)
