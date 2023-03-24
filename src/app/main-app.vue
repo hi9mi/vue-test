@@ -1,0 +1,83 @@
+<script lang="ts" setup>
+import DealsIcon from "@app/shared/icons/deals.svg?component";
+import HeartIcon from "@app/shared/icons/heart.svg?component";
+import StockIcon from "@app/shared/icons/stock.svg?component";
+import { routes } from "@app/shared/routes";
+import { AppHeader } from "@app/shared/ui";
+
+const navList = [
+  {
+    text: "Избранное",
+    path: routes.favorites.path,
+    icon: HeartIcon,
+  },
+  {
+    text: "Склад",
+    path: routes.stock.path,
+    icon: StockIcon,
+  },
+  {
+    text: "Сделки",
+    path: routes.deals.path,
+    icon: DealsIcon,
+  },
+];
+</script>
+
+<template>
+  <AppHeader>
+    <nav class="header-nav">
+      <ul class="nav-list">
+        <li v-for="({ path, text, icon }, index) of navList" :key="index" class="nav">
+          <component :is="icon" class="nav-icon" />
+          <router-link :to="{ path }" class="nav-link">{{ text }}</router-link>
+        </li>
+      </ul>
+    </nav>
+  </AppHeader>
+  <router-view />
+</template>
+
+<style scoped>
+.header-nav {
+  display: flex;
+  width: 100%;
+}
+
+.nav-list {
+  list-style-type: none;
+  margin-left: auto;
+  display: flex;
+}
+
+.nav {
+  text-align: center;
+  padding: 7px;
+  width: 86px;
+  height: 50px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.nav-link {
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--color-dark-blue);
+}
+
+.nav > .nav-link::before {
+  position: absolute;
+  content: "";
+  inset: 0;
+}
+.nav:has(.router-link-active) {
+  background-color: var(--color-light-gray);
+}
+
+.nav-icon {
+  height: 20px;
+  width: 20px;
+  margin: auto;
+}
+</style>
