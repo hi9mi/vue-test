@@ -1,11 +1,11 @@
 import { supabase } from "@app/shared/config";
 import { Deal } from "@app/shared/types";
 
-type FetchFavoriteListWithDealsParams = {
+type FetchFavoriteDealsParams = {
   search: string;
   offerType: string;
 };
-export const fetchFavoriteListWithDeals = async ({ search, offerType }: FetchFavoriteListWithDealsParams) => {
+export const fetchFavoriteDeals = async ({ search, offerType }: FetchFavoriteDealsParams) => {
   if (offerType === "all") {
     const { data: favorites } = await supabase
       .from("favorites")
@@ -15,8 +15,8 @@ export const fetchFavoriteListWithDeals = async ({ search, offerType }: FetchFav
     if (!favorites) return null;
 
     return favorites
-      .filter(favorite => favorite.deal !== null)
-      .map(favorite => ({ ...favorite.deal, isFavorite: true })) as (Deal & { isFavorite: boolean })[];
+      .filter((favorite): favorite is { deal_id: number; deal: Deal } => favorite.deal !== null)
+      .map(favorite => ({ ...favorite.deal, isFavorite: true }));
   }
   const { data: favorites } = await supabase
     .from("favorites")
@@ -27,8 +27,8 @@ export const fetchFavoriteListWithDeals = async ({ search, offerType }: FetchFav
   if (!favorites) return null;
 
   return favorites
-    .filter(favorite => favorite.deal !== null)
-    .map(favorite => ({ ...favorite.deal, isFavorite: true })) as (Deal & { isFavorite: boolean })[];
+    .filter((favorite): favorite is { deal_id: number; deal: Deal } => favorite.deal !== null)
+    .map(favorite => ({ ...favorite.deal, isFavorite: true }));
 };
 
 export const fetchFavoriteList = async () => {

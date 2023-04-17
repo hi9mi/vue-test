@@ -10,11 +10,14 @@ defineProps<{ deal: Deal }>();
 <template>
   <AppCard>
     <template #img>
-      <img class="card-img" src="/image.webp" alt="description" />
+      <picture>
+        <source type="image/webp" srcset="/image.webp" />
+        <img src="/image.jpg" class="card-img" :alt="deal.description" />
+      </picture>
     </template>
     <template #body>
       <span class="card-offer-type">{{ deal.offer_type === "auction" ? "Аукцион" : "Прямая продажа" }}</span>
-      <h1 class="card-title">{{ deal.name }}</h1>
+      <h2 class="card-title">{{ deal.name }}</h2>
       <div class="card-location">
         <LocationIcon class="location-icon" />
         <address class="location-address">{{ deal.location }}</address>

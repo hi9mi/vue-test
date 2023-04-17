@@ -34,7 +34,7 @@ fetchFavoritesList((route.query.search as string) ?? "", (route.query.offer_type
         </template>
       </DealCard>
     </template>
-    <p v-else class="empty-list">Нет сделок...</p>
+    <p v-else class="empty-list">Нет сделок в избранном...</p>
   </div>
 </template>
 

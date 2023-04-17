@@ -3,7 +3,7 @@ defineProps<{ selectedOfferType: string }>();
 const emit = defineEmits<{ (e: "update:selectedOfferType", value: string): void }>();
 
 const updateOfferType = (event: Event) => {
-  if (event.target instanceof HTMLInputElement) {
+  if (event.target instanceof HTMLButtonElement) {
     emit("update:selectedOfferType", event.target.value);
   }
 };
@@ -25,19 +25,19 @@ const offerFiltersList = [
 </script>
 
 <template>
-  <div class="offer-filters">
-    <div v-for="({ value, text }, index) of offerFiltersList" :key="index" class="offer-filter">
-      <label :for="value" class="offer-label" :class="{ active: selectedOfferType === value }">{{ text }}</label>
-      <input
-        :id="value"
-        type="radio"
-        name="offer"
-        :value="value"
-        class="offer-input"
-        :checked="selectedOfferType === value"
-        @input="updateOfferType"
-      />
-    </div>
+  <div class="offer-filters" aria-label="offer-type-filters">
+    <button
+      v-for="{ value, text } of offerFiltersList"
+      :key="value"
+      class="offer-filter"
+      :class="{ active: selectedOfferType === value }"
+      type="button"
+      :value="value"
+      :aria-pressed="selectedOfferType === value"
+      @click="updateOfferType"
+    >
+      {{ text }}
+    </button>
   </div>
 </template>
 
@@ -52,21 +52,17 @@ const offerFiltersList = [
   border-radius: 10px;
 }
 
-.offer-filter > * {
+.offer-filter {
+  background-color: transparent;
+  border: none;
   cursor: pointer;
-}
-
-.offer-label {
   font-size: 15px;
   font-weight: 400;
   color: var(--color-manatee);
   transition: color linear 0.1s;
 }
-.offer-label.active {
-  color: var(--color-dark-blue);
-}
 
-.offer-input {
-  display: none;
+.offer-filter.active {
+  color: var(--color-dark-blue);
 }
 </style>

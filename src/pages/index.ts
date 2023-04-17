@@ -17,7 +17,7 @@ export const routesMap = [
   },
   {
     path: routes.deals.path,
-    name: routes.deals.path,
+    name: routes.deals.name,
     component: MyDealsPage,
   },
 ];

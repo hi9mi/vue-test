@@ -38,7 +38,7 @@ fetchStockList((route.query.search as string) ?? "", (route.query.offer_type as 
         </template>
       </DealCard>
     </template>
-    <p v-else class="empty-list">Нет сделок...</p>
+    <p v-else class="empty-list">Нет сделок на складе...</p>
   </div>
 </template>
 

@@ -17,7 +17,7 @@ export const useFavoritesStore = defineStore("favorites", {
     async fetchFavoritesList(search = "", offerType = "all") {
       this.$state.isLoadingFavoritesList = true;
 
-      this.$state.favoritesList = await api.fetchFavoriteListWithDeals({ search, offerType });
+      this.$state.favoritesList = await api.fetchFavoriteDeals({ search, offerType });
 
       this.$state.isLoadingFavoritesList = false;
     },

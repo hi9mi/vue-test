@@ -19,11 +19,8 @@ export const fetchDealList = async ({ search, offerType }: FetchDealListParams) 
     if (!deals) return null;
 
     return deals
-      .filter(myDeal => myDeal.deal !== null)
-      .map(({ deal, deal_id, paid, id }) => ({ ...deal, deal_id, paid, id })) as (Deal & {
-      deal_id: number;
-      paid: boolean;
-    })[];
+      .filter((myDeal): myDeal is { deal_id: number; id: number; paid: boolean; deal: Deal } => myDeal.deal !== null)
+      .map(({ deal, deal_id, paid, id }) => ({ ...deal, deal_id, paid, id }));
   }
   const { data: deals } = await supabase
     .from("my_deals")
@@ -34,11 +31,8 @@ export const fetchDealList = async ({ search, offerType }: FetchDealListParams) 
   if (!deals) return null;
 
   return deals
-    .filter(myDeal => myDeal.deal !== null)
-    .map(({ deal, deal_id, paid, id }) => ({ ...deal, deal_id, paid, id })) as (Deal & {
-    deal_id: number;
-    paid: boolean;
-  })[];
+    .filter((myDeal): myDeal is { deal_id: number; id: number; paid: boolean; deal: Deal } => myDeal.deal !== null)
+    .map(({ deal, deal_id, paid, id }) => ({ ...deal, deal_id, paid, id }));
 };
 
 export const paidDeal = async (id: number) => {

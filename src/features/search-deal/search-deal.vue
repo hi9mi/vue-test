@@ -16,7 +16,7 @@ const submitSearch = () => {
 </script>
 
 <template>
-  <form class="search-filter" @submit.prevent="submitSearch">
+  <form class="search-filter" role="search" @submit.prevent="submitSearch">
     <input
       class="search-input"
       type="text"

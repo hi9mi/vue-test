@@ -1,9 +1,23 @@
 <script lang="ts" setup>
+import { computed } from "vue";
+import { useRoute } from "vue-router";
+
 import DealsIcon from "@app/shared/icons/deals.svg?component";
 import HeartIcon from "@app/shared/icons/heart.svg?component";
 import StockIcon from "@app/shared/icons/stock.svg?component";
 import { routes } from "@app/shared/routes";
 import { AppHeader } from "@app/shared/ui";
+
+const route = useRoute();
+
+const query = computed(() => {
+  for (const { name } of routes) {
+    if (route.name?.toString().includes(name)) {
+      return route.query;
+    }
+  }
+  return undefined;
+});
 
 const navList = [
   {
@@ -30,7 +44,7 @@ const navList = [
       <ul class="nav-list">
         <li v-for="({ path, text, icon }, index) of navList" :key="index" class="nav">
           <component :is="icon" class="nav-icon" />
-          <router-link :to="{ path }" class="nav-link">{{ text }}</router-link>
+          <router-link :to="{ path, query }" class="nav-link">{{ text }}</router-link>
         </li>
       </ul>
     </nav>
@@ -71,8 +85,21 @@ const navList = [
   content: "";
   inset: 0;
 }
-.nav:has(.router-link-active) {
-  background-color: var(--color-light-gray);
+@supports selector(:has(*)) {
+  .nav:has(.router-link-active) {
+    background-color: var(--color-light-gray);
+  }
+}
+
+@supports not selector(:has(*)) {
+  .router-link-active.nav-link::after {
+    position: absolute;
+    content: "";
+    z-index: -1;
+    inset: 0;
+    border-radius: 10px;
+    background-color: var(--color-light-gray);
+  }
 }
 
 .nav-icon {
