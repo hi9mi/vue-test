@@ -12,7 +12,7 @@ defineProps<{ deal: Deal }>();
     <template #img>
       <picture>
         <source type="image/webp" srcset="/image.webp" />
-        <img src="/image.jpg" class="card-img" :alt="deal.description" />
+        <img src="/Image.jpg" class="card-img" :alt="deal.description" />
       </picture>
     </template>
     <template #body>
